@@ -52,11 +52,20 @@ const update = async (id, nome, preco, quantidade, id_tipos) => {
   return result.rows[0];
 };
 
+const searchByName = async (nome) => {
+  const result = await pool.query(
+    'SELECT * FROM plantas WHERE nome ILIKE $1',
+    [`%${nome}%`]
+  );
+
+  return result.rows;
+};
 
 export default {
   getAll,
   create,
   remove,
   getById,
-  update
+  update,
+  searchByName
 };

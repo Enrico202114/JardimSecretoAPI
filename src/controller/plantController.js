@@ -1,7 +1,16 @@
 import plantModel from "../model/plantModel.js";
 
 const getAll = async (req, res) => {
+
+  const { nome } = req.query;
+
+  if (nome) {
+    const plants = await plantModel.searchByName(nome);
+    return res.json(plants);
+  }
+
   const plants = await plantModel.getAll();
+
   res.json(plants);
 };
 
